@@ -3,7 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31105.61
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.AMcom", "Desafio.AMcom\Desafio.AMcom.csproj", "{2D255499-D1AD-4963-87BC-D3D613A7DEB2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Desafio.AMcom", "Desafio.AMcom\Desafio.AMcom.csproj", "{2D255499-D1AD-4963-87BC-D3D613A7DEB2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.AMcom.Dominio", "Desafio.AMcom.Dominio\Desafio.AMcom.Dominio.csproj", "{6BF80D26-3CF2-4259-9A16-8A5C668C14A0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Desafio.AMcom.Infraestrutura", "Desafio.AMcom.Infraestrutura\Desafio.AMcom.Infraestrutura.csproj", "{B1896DA1-6A11-42AA-A908-B9AF7DDB2DC3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +19,14 @@ Global
 		{2D255499-D1AD-4963-87BC-D3D613A7DEB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2D255499-D1AD-4963-87BC-D3D613A7DEB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2D255499-D1AD-4963-87BC-D3D613A7DEB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BF80D26-3CF2-4259-9A16-8A5C668C14A0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BF80D26-3CF2-4259-9A16-8A5C668C14A0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BF80D26-3CF2-4259-9A16-8A5C668C14A0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BF80D26-3CF2-4259-9A16-8A5C668C14A0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1896DA1-6A11-42AA-A908-B9AF7DDB2DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1896DA1-6A11-42AA-A908-B9AF7DDB2DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1896DA1-6A11-42AA-A908-B9AF7DDB2DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1896DA1-6A11-42AA-A908-B9AF7DDB2DC3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

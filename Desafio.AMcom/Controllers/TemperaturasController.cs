@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Desafio.AMcom.Dominio.IRepositorios;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
@@ -10,10 +11,14 @@ namespace Desafio.AMcom.Controllers
     public class TemperaturasController : ControllerBase
     {
         private ILogger<TemperaturasController> _logger;
+        private readonly IRepositorioPais _repositorioPais;
+        private readonly IRepositorioPessoa _repositorioPessoa;
 
-        public TemperaturasController(ILogger<TemperaturasController> logger)
+        public TemperaturasController(ILogger<TemperaturasController> logger, IRepositorioPais repositorioPais, IRepositorioPessoa repositorioPessoa)
         {
             _logger = logger;
+            _repositorioPais = repositorioPais;
+            _repositorioPessoa = repositorioPessoa;
         }
 
         [HttpGet("Fahrenheit/{temperatura}")]
@@ -56,13 +61,24 @@ namespace Desafio.AMcom.Controllers
         [HttpGet("paises")]
         public ActionResult RetornaPaises()
         {
-            return Ok();
+            var paises = _repositorioPais.ObterTodos();
+
+            return Ok(paises);
         }
 
         [HttpGet("pais-por-sigla")]
-        public ActionResult RetornaPaisPorSigla()
+        public ActionResult RetornaPaisPorSigla(string sigla)
         {
-            return Ok();
+            var paises = _repositorioPais.ObterPorSigla(sigla);
+            return Ok(paises);
+        }
+
+        [HttpGet("dados-api-pessoa")]
+        public ActionResult RetornaDadosApiUser()
+        {
+            var userDto = _repositorioPessoa.ObterDadosAPI();
+
+            return Ok(userDto);
         }
     }
 }

@@ -1,3 +1,5 @@
+using Desafio.AMcom.Dominio.IRepositorios;
+using Desafio.AMcom.Infraestrutura.Repositorios;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -25,6 +27,8 @@ namespace Desafio.AMcom
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IRepositorioPais, RepositorioPais>();
+            services.AddScoped<IRepositorioPessoa, RepositorioPessoa>();
 
             services.AddControllers();
             services.AddSwaggerGen(c =>
