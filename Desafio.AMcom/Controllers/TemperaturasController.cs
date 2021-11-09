@@ -3,7 +3,6 @@ using Desafio.AMcom.Temps;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -16,15 +15,13 @@ namespace Desafio.AMcom.Controllers
         private ILogger<TemperaturasController> _logger;
         private readonly IRepositorioPais _repositorioPais;
         private readonly IRepositorioPessoa _repositorioPessoa;
-        private StreamWriter _file;
-        private static IList<Temperatura> Temperaturas;
-
+       
+ 
         public TemperaturasController(ILogger<TemperaturasController> logger, IRepositorioPais repositorioPais, IRepositorioPessoa repositorioPessoa)
         {
             _logger = logger;
             _repositorioPais = repositorioPais;
-            _repositorioPessoa = repositorioPessoa;  
-            
+            _repositorioPessoa = repositorioPessoa;              
         }
 
         // GET fahrenheit
@@ -69,7 +66,7 @@ namespace Desafio.AMcom.Controllers
 
         // POST txt
         /// <summary>
-        /// Registra temperaturasa
+        /// Registra temperaturas em um arquivo txt
         /// </summary>
         /// <remarks>
         /// Exemplo:
@@ -79,22 +76,25 @@ namespace Desafio.AMcom.Controllers
         ///          "valorFahrenheit": 32,
         ///          "valorCelsius": 0,
         ///          "valorKelvin": 273.15
-        ///    }
+        ///      }
         /// 
         /// </remarks>
-        /// <param name="temperatura">Valor em Fahrenheit</param>
-        /// <returns>Retorno informações de temperatura em Fahrenheit, em Celsius e Kelvin</returns>
-        /// <response code="200">Retorna as temperaturas</response>
+        /// <param name="valorFahrenheit">Valor em Fahrenheit</param>
+        /// <param name="valorCelsius">Valor em Celsius</param>
+        /// <param name="valorKelvin">Valor em Kelvin</param>
+        /// <returns>Sem retorno</returns>
+        /// <response code="200">Caso cadastro realizado com sucesso</response>
         [HttpPost("txt")]
         public ActionResult SalvaTemperaturatxt(Temperatura temperatura)
         {
-            _file = new("temperatura.txt");
+            StreamWriter file = new StreamWriter("temperatura.txt");
 
-            _file.WriteLine(temperatura.ValorKelvin);
-            _file.WriteLine(temperatura.ValorCelsius);
-            _file.WriteLine(temperatura.ValorFahrenheit);
+            
+            file.WriteLine(temperatura.ValorKelvin);
+            file.WriteLine(temperatura.ValorCelsius);
+            file.WriteLine(temperatura.ValorFahrenheit);
 
-            _file.Close();
+            file.Close();
 
             return Ok();
         }
@@ -128,8 +128,9 @@ namespace Desafio.AMcom.Controllers
         ///
         ///     GET /pais-por-sigla/AL
         /// 
-        /// </remarks> 
-        /// <returns>Lista com informações sobre os países a partir do filtro da silga.</returns>
+        /// </remarks>
+        /// <param name="sigla">String referente a sigla</param>
+        /// <returns>Lista com informações sobre os países a partir do filtro da sigla.</returns>
         /// <response code="200">Retorna a listagem resultado do filtro</response>
         [HttpGet("pais-por-sigla")]
         public ActionResult RetornaPaisPorSigla(string sigla)
@@ -157,5 +158,48 @@ namespace Desafio.AMcom.Controllers
 
             return Ok(userDto);
         }
+
+        // GET dados-api-pessoa-por-nome
+        /// <summary>
+        /// Retorna dados da API https://reqres.in/api/users?page=2 com informações de pessoas filtrando por nome
+        /// </summary>
+        /// <remarks>
+        /// Exemplo:
+        ///
+        ///     GET /dados-api-pessoa-por-nome/joao
+        /// 
+        /// </remarks> 
+        /// <param name="nome">String referente ao nome</param>
+        /// <returns>Listagem de pessoas obtida da API https://reqres.in/api/users?page=2 .</returns>
+        /// <response code="200">Retorna listagem de pessoas</response>
+        [HttpGet("dados-api-pessoa-por-nome")]
+        public async Task<ActionResult> RetornaDadosApiUserPorNome(string nome)
+        {
+            var userDto = await _repositorioPessoa.ObterPorNome(nome);
+
+            return Ok(userDto);
+        }
+
+        // GET dados-api-pessoa-por-email
+        /// <summary>
+        /// Retorna dados da API https://reqres.in/api/users?page=2 com informações de pessoas filtrando por email
+        /// </summary>
+        /// <remarks>
+        /// Exemplo:
+        ///
+        ///     GET /dados-api-pessoa-por-email/joao@email.com
+        /// 
+        /// </remarks> 
+        /// <param name="email">String referente ao email</param>
+        /// <returns>Listagem de pessoas obtida da API https://reqres.in/api/users?page=2 .</returns>
+        /// <response code="200">Retorna listagem de pessoas</response>
+        [HttpGet("dados-api-pessoa-por-email")]
+        public async Task<ActionResult> RetornaDadosApiUserPorEmail(string email)
+        {
+            var userDto = await _repositorioPessoa.ObterPorEmail(email);
+
+            return Ok(userDto);
+        }
+
     }
 }
