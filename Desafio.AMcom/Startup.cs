@@ -32,7 +32,9 @@ namespace Desafio.AMcom
             services.AddScoped<IRepositorioPais, RepositorioPais>();
             services.AddScoped<IRepositorioPessoa, RepositorioPessoa>();
 
-            services.AddControllers();
+            services.AddControllers()
+                        .AddNewtonsoftJson();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Desafio.AMcom", Version = "v1" });
