@@ -21,6 +21,11 @@ namespace Desafio.AMcom.Controllers
             _repositorioPessoa = repositorioPessoa;
         }
 
+        /// <summary>
+        /// Deletes a specific TodoItem.
+        /// </summary>
+        /// <param name="temperatura">Valor em Fahrenheit</param>
+        /// <returns>Retorno json com informações da conversão em Celsius e Kelvin</returns>
         [HttpGet("Fahrenheit/{temperatura}")]
         public object GetConversaoFahrenheit(int temperatura)
         {
