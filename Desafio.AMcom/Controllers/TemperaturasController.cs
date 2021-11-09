@@ -13,15 +13,12 @@ namespace Desafio.AMcom.Controllers
     [ApiController]
     public class TemperaturasController : ControllerBase
     {
-        private ILogger<TemperaturasController> _logger;
-        private readonly IRepositorioPais _repositorioPais;
-        private readonly IRepositorioPessoa _repositorioPessoa;
-       
+        private ILogger<TemperaturasController> _logger;        
+        private readonly IRepositorioPessoa _repositorioPessoa;       
  
-        public TemperaturasController(ILogger<TemperaturasController> logger, IRepositorioPais repositorioPais, IRepositorioPessoa repositorioPessoa)
+        public TemperaturasController(ILogger<TemperaturasController> logger, IRepositorioPessoa repositorioPessoa)
         {
-            _logger = logger;
-            _repositorioPais = repositorioPais;
+            _logger = logger;            
             _repositorioPessoa = repositorioPessoa;              
         }
 
@@ -99,108 +96,5 @@ namespace Desafio.AMcom.Controllers
 
             return Ok();
         }
-
-        // GET paises
-        /// <summary>
-        /// Retorna a lista de todos os países salvos em paises.json
-        /// </summary>
-        /// <remarks>
-        /// Exemplo:
-        ///
-        ///     GET /paises
-        /// 
-        /// </remarks> 
-        /// <returns>Lista com informações sobre os países</returns>
-        /// <response code="200">Retorna a listagem</response>
-        [HttpGet("paises")]
-        public ActionResult RetornaPaises()
-        {
-            var paises = _repositorioPais.ObterTodos();
-
-            return Ok(paises);
-        }
-
-        // GET pais-por-sigla
-        /// <summary>
-        /// Retorna a lista a partir do filtro por países por filtro salvos em paises.json
-        /// </summary>
-        /// <remarks>
-        /// Exemplo:
-        ///
-        ///     GET /pais-por-sigla/AL
-        /// 
-        /// </remarks>
-        /// <param name="sigla">String referente a sigla</param>
-        /// <returns>Lista com informações sobre os países a partir do filtro da sigla.</returns>
-        /// <response code="200">Retorna a listagem resultado do filtro</response>
-        [HttpGet("pais-por-sigla")]
-        public ActionResult RetornaPaisPorSigla(string sigla)
-        {
-            var paises = _repositorioPais.ObterPorSigla(sigla);
-            return Ok(paises);
-        }
-
-        // GET dados-api-pessoa
-        /// <summary>
-        /// Retorna dados da API https://reqres.in/api/users?page=2 com informações de pessoas
-        /// </summary>
-        /// <remarks>
-        /// Exemplo:
-        ///
-        ///     GET /dados-api-pessoa
-        /// 
-        /// </remarks> 
-        /// <returns>Listagem de pessoas obtida da API https://reqres.in/api/users?page=2 .</returns>
-        /// <response code="200">Retorna listagem de pessoas</response>
-        [HttpGet("dados-api-pessoa")]
-        public async Task<ActionResult> RetornaDadosApiUser()
-        {
-            var userDto = await _repositorioPessoa.ObterDadosAPI();
-
-            return Ok(userDto);
-        }
-
-        // GET dados-api-pessoa-por-nome
-        /// <summary>
-        /// Retorna dados da API https://reqres.in/api/users?page=2 com informações de pessoas filtrando por nome
-        /// </summary>
-        /// <remarks>
-        /// Exemplo:
-        ///
-        ///     GET /dados-api-pessoa-por-nome/joao
-        /// 
-        /// </remarks> 
-        /// <param name="nome">String referente ao nome</param>
-        /// <returns>Listagem de pessoas obtida da API https://reqres.in/api/users?page=2 .</returns>
-        /// <response code="200">Retorna listagem de pessoas</response>
-        [HttpGet("dados-api-pessoa-por-nome")]
-        public async Task<ActionResult> RetornaDadosApiUserPorNome(string nome)
-        {
-            var userDto = await _repositorioPessoa.ObterPorNome(nome);
-
-            return Ok(userDto);
-        }
-
-        // GET dados-api-pessoa-por-email
-        /// <summary>
-        /// Retorna dados da API https://reqres.in/api/users?page=2 com informações de pessoas filtrando por email
-        /// </summary>
-        /// <remarks>
-        /// Exemplo:
-        ///
-        ///     GET /dados-api-pessoa-por-email/joao@email.com
-        /// 
-        /// </remarks> 
-        /// <param name="email">String referente ao email</param>
-        /// <returns>Listagem de pessoas obtida da API https://reqres.in/api/users?page=2 .</returns>
-        /// <response code="200">Retorna listagem de pessoas</response>
-        [HttpGet("dados-api-pessoa-por-email")]
-        public async Task<ActionResult> RetornaDadosApiUserPorEmail(string email)
-        {
-            var userDto = await _repositorioPessoa.ObterPorEmail(email);
-
-            return Ok(userDto);
-        }
-
     }
 }
