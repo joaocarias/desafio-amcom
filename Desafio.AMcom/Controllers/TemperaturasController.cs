@@ -1,4 +1,5 @@
 ﻿using Desafio.AMcom.Dominio.IRepositorios;
+using Desafio.AMcom.Infraestrutura.Servicos;
 using Desafio.AMcom.Temps;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -31,14 +32,14 @@ namespace Desafio.AMcom.Controllers
         /// <remarks>
         /// Exemplo:
         ///
-        ///     GET /fahrenheit/32
+        ///     GET /fahrenheit/32.0
         /// 
         /// </remarks>
-        /// <param name="temperatura">Valor em Fahrenheit</param>
+        /// <param name="temperatura">Valor em Fahrenheit (é comum dar a temperatuda em decimal)</param>
         /// <returns>Retorno informações de temperatura em Fahrenheit, em Celsius e Kelvin</returns>
         /// <response code="200">Retorna as temperaturas</response>
         [HttpGet("fahrenheit/{temperatura}")]
-        public object GetConversaoFahrenheit(int temperatura)
+        public object GetConversaoFahrenheit(double temperatura)
         {
             Temperatura dados = new Temperatura();
 
@@ -47,8 +48,8 @@ namespace Desafio.AMcom.Controllers
                 _logger.LogInformation($"Recebida temperatura para conversão: {temperatura}");
 
                 dados.ValorFahrenheit = temperatura;
-                dados.ValorCelsius = (temperatura - 32.0) / 1.8;
-                dados.ValorKelvin = dados.ValorCelsius + 273.15;
+                dados.ValorCelsius = ConversaoFahrenheitServico.ValorCelsius(temperatura);
+                dados.ValorKelvin = ConversaoFahrenheitServico.ValorKelvin(temperatura);
             }
             catch (Exception err)
             {
