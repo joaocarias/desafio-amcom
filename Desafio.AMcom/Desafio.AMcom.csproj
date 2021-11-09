@@ -13,4 +13,9 @@
     <ProjectReference Include="..\Desafio.AMcom.Infraestrutura\Desafio.AMcom.Infraestrutura.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+	<GenerateDocumentationFile>true</GenerateDocumentationFile>
+	<NoWarn>$(NoWarn);1591</NoWarn>
+  </PropertyGroup>
+
 </Project>

@@ -21,11 +21,19 @@ namespace Desafio.AMcom.Controllers
             _repositorioPessoa = repositorioPessoa;
         }
 
+        // GET Fahrenheit
         /// <summary>
-        /// Deletes a specific TodoItem.
+        /// Obter valores de temperaturas a partir de Fahrenheit
         /// </summary>
+        /// <remarks>
+        /// Exemplo:
+        ///
+        ///     GET /Fahrenheit/32
+        /// 
+        /// </remarks>
         /// <param name="temperatura">Valor em Fahrenheit</param>
-        /// <returns>Retorno json com informações da conversão em Celsius e Kelvin</returns>
+        /// <returns>Retorno informações de temperatura em Fahrenheit, em Celsius e Kelvin</returns>
+        /// <response code="200">Retorna o novo item criado</response>
         [HttpGet("Fahrenheit/{temperatura}")]
         public object GetConversaoFahrenheit(int temperatura)
         {
