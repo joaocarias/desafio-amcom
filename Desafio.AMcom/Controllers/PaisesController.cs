@@ -67,7 +67,7 @@ namespace Desafio.AMcom.Controllers
         /// <param name="nome">String referente ao nome do pais</param>
         /// <returns>Lista com informações sobre os países a partir do filtro do nome.</returns>
         /// <response code="200">Retorna a listagem resultado do filtro</response>
-        [HttpGet("pais-por-sigla")]
+        [HttpGet("pais-por-nome")]
         public ActionResult RetornaPaisPorNome(string nome)
         {
             var paises = _repositorioPais.ObterPorSigla(nome);

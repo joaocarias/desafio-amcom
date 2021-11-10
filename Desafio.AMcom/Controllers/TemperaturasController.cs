@@ -1,11 +1,9 @@
-﻿using Desafio.AMcom.Dominio.IRepositorios;
-using Desafio.AMcom.Infraestrutura.Servicos;
+﻿using Desafio.AMcom.Infraestrutura.Servicos;
 using Desafio.AMcom.Temps;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
-using System.Threading.Tasks;
 
 namespace Desafio.AMcom.Controllers
 {
@@ -13,13 +11,11 @@ namespace Desafio.AMcom.Controllers
     [ApiController]
     public class TemperaturasController : ControllerBase
     {
-        private ILogger<TemperaturasController> _logger;        
-        private readonly IRepositorioPessoa _repositorioPessoa;       
+        private ILogger<TemperaturasController> _logger;      
  
-        public TemperaturasController(ILogger<TemperaturasController> logger, IRepositorioPessoa repositorioPessoa)
+        public TemperaturasController(ILogger<TemperaturasController> logger)
         {
-            _logger = logger;            
-            _repositorioPessoa = repositorioPessoa;              
+            _logger = logger;                          
         }
 
         // GET fahrenheit
