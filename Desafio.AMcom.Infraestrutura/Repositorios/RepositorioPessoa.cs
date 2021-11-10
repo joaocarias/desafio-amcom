@@ -31,13 +31,13 @@ namespace Desafio.AMcom.Infraestrutura.Repositorios
         public async Task<IList<Pessoa>> ObterPorEmail(string email)
         {
             await ConsumirAPi();
-            return _usersDTO.Data.Where(x => x.Email.Contains(email)).ToList();
+            return _usersDTO.Data.Where(x => x.Email.ToLower().Contains(email.ToLower())).ToList();
         }
 
         public async Task<IList<Pessoa>> ObterPorNome(string nome)
         {
             await ConsumirAPi();
-            return _usersDTO.Data.Where(x => x.First_name.Contains(nome) || x.Last_name.Contains(nome)).ToList();
+            return _usersDTO.Data.Where(x => x.First_name.ToUpper().Contains(nome.ToUpper()) || x.Last_name.ToUpper().Contains(nome.ToUpper())).ToList();
         }
 
         public async Task<IList<Pessoa>> ObterTodas()

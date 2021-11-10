@@ -77,19 +77,21 @@ namespace Desafio.AMcom.Controllers
         /// <param name="valorCelsius">Valor em Celsius</param>
         /// <param name="valorKelvin">Valor em Kelvin</param>
         /// <returns>Sem retorno</returns>
-        /// <response code="200">Caso cadastro realizado com sucesso</response>
+        /// <response code="200">Retorno os valores cadastrados</response>
         [HttpPost("txt")]
         public ActionResult SalvaTemperaturatxt(Temperatura temperatura)
         {
-            StreamWriter file = new StreamWriter("temperatura.txt");
-                        
-            file.WriteLine(temperatura.ValorKelvin);
-            file.WriteLine(temperatura.ValorCelsius);
-            file.WriteLine(temperatura.ValorFahrenheit);
 
-            file.Close();
+            using (StreamWriter file = new StreamWriter("temperatura.txt", true))
+            {
+                file.WriteLine(temperatura.ValorKelvin);
+                file.WriteLine(temperatura.ValorCelsius);
+                file.WriteLine(temperatura.ValorFahrenheit);
 
-            return Ok();
+                file.Close();
+            }
+
+            return Ok(temperatura);
         }
     }
 }

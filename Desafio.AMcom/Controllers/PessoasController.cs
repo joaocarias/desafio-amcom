@@ -42,7 +42,7 @@ namespace Desafio.AMcom.Controllers
         /// <remarks>
         /// Exemplo:
         ///
-        ///     GET /dados-api-pessoa-por-nome/joao
+        ///     GET /dados-api-pessoa-por-nome?nome=joao
         /// 
         /// </remarks> 
         /// <param name="nome">String referente ao nome</param>
@@ -51,9 +51,9 @@ namespace Desafio.AMcom.Controllers
         [HttpGet("dados-api-pessoa-por-nome")]
         public async Task<ActionResult> RetornaDadosApiUserPorNome(string nome)
         {
-            var userDto = await _repositorioPessoa.ObterPorNome(nome);
+            var retorno = await _repositorioPessoa.ObterPorNome(nome);
 
-            return Ok(userDto);
+            return Ok(retorno);
         }
 
         // GET dados-api-pessoa-por-email
@@ -63,7 +63,7 @@ namespace Desafio.AMcom.Controllers
         /// <remarks>
         /// Exemplo:
         ///
-        ///     GET /dados-api-pessoa-por-email/joao@email.com
+        ///     GET /dados-api-pessoa-por-email?email=joao@email.com
         /// 
         /// </remarks> 
         /// <param name="email">String referente ao email</param>
@@ -72,9 +72,9 @@ namespace Desafio.AMcom.Controllers
         [HttpGet("dados-api-pessoa-por-email")]
         public async Task<ActionResult> RetornaDadosApiUserPorEmail(string email)
         {
-            var userDto = await _repositorioPessoa.ObterPorEmail(email);
+            var retorno = await _repositorioPessoa.ObterPorEmail(email);
 
-            return Ok(userDto);
+            return Ok(retorno);
         }
     }
 }

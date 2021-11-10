@@ -41,7 +41,7 @@ namespace Desafio.AMcom.Controllers
         /// <remarks>
         /// Exemplo:
         ///
-        ///     GET /pais-por-sigla/AL
+        ///     GET /pais-por-sigla?sigla=AL
         /// 
         /// </remarks>
         /// <param name="sigla">String referente a sigla</param>
@@ -61,7 +61,7 @@ namespace Desafio.AMcom.Controllers
         /// <remarks>
         /// Exemplo:
         ///
-        ///     GET /pais-por-sigla/Brasil
+        ///     GET /pais-por-sigla?nome=Brasil
         /// 
         /// </remarks>
         /// <param name="nome">String referente ao nome do pais</param>
@@ -70,7 +70,7 @@ namespace Desafio.AMcom.Controllers
         [HttpGet("pais-por-nome")]
         public ActionResult RetornaPaisPorNome(string nome)
         {
-            var paises = _repositorioPais.ObterPorSigla(nome);
+            var paises = _repositorioPais.ObterPorNome(nome);
             return Ok(paises);
         }
     }
