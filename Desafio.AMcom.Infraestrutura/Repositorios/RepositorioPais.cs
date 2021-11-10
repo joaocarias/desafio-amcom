@@ -2,26 +2,25 @@
 using Desafio.AMcom.Dominio.IRepositorios;
 using Desafio.AMcom.Infraestrutura.Servicos;
 using Microsoft.Extensions.Logging;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace Desafio.AMcom.Infraestrutura.Repositorios
 {
     public class RepositorioPais : IRepositorioPais
     {
-        private readonly ILogger<RepositorioPais> _logger;
         private IList<Pais> _paises;
 
-        public RepositorioPais(ILogger<RepositorioPais> logger)
+        public RepositorioPais()
         {
-            _logger = logger;
             _paises = new List<Pais>();
+        }
 
-            _logger.LogInformation("Iniciando RepositorioPais");
+        public IList<Pais> ObterPorNome(string nome)
+        {
+            AtualizarListagem();
+            return _paises.Where(x => x.NomePais.ToUpper().Contains(nome.ToUpper())).ToList();
         }
 
         public IList<Pais> ObterPorSigla(string sigla)
@@ -38,7 +37,6 @@ namespace Desafio.AMcom.Infraestrutura.Repositorios
 
         private void AtualizarListagem()
         {
-            _logger.LogInformation("Atualizando Listagem de Paises");
             _paises = JsonSerializer.Deserialize<IList<Pais>>(LeitorJsonServico.Ler("paises.json"));
         }
     }

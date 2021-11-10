@@ -7,5 +7,6 @@ namespace Desafio.AMcom.Dominio.IRepositorios
     {
         public IList<Pais> ObterTodos();
         public IList<Pais> ObterPorSigla(string sigla);
+        public IList<Pais> ObterPorNome(string nome);
     }
 }

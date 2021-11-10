@@ -1,41 +1,62 @@
 ﻿using Desafio.AMcom.Dominio.DTO;
 using Desafio.AMcom.Dominio.Entidades;
 using Desafio.AMcom.Dominio.IRepositorios;
-using Desafio.AMcom.Infraestrutura.Servicos;
-using System;
+using Newtonsoft.Json;
+using Polly;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Desafio.AMcom.Infraestrutura.Repositorios
 {
     public class RepositorioPessoa : IRepositorioPessoa
     {
+        private UsersDTO _usersDTO;
+        private HttpClient _httpClient;
+
+        public RepositorioPessoa()
+        {
+            _httpClient = new HttpClient();
+            _usersDTO = new UsersDTO();
+        }
 
         public async Task<UsersDTO> ObterDadosAPI()
         {
-            return await UserAPIServico.Consumir();
+            await ConsumirAPi();
+            return _usersDTO;
         }
 
         public async Task<IList<Pessoa>> ObterPorEmail(string email)
         {
-            var userAPI = await UserAPIServico.Consumir();
-
-            return userAPI.Pessoas.Where(x => x.Email.Contains(email)).ToList();
+            await ConsumirAPi();
+            return _usersDTO.Data.Where(x => x.Email.Contains(email)).ToList();
         }
 
         public async Task<IList<Pessoa>> ObterPorNome(string nome)
         {
-            var userAPI = await UserAPIServico.Consumir();
-
-            return userAPI.Pessoas.Where(x => x.FirstName.Contains(nome) || x.LastName.Contains(nome)).ToList();
+            await ConsumirAPi();
+            return _usersDTO.Data.Where(x => x.First_name.Contains(nome) || x.Last_name.Contains(nome)).ToList();
         }
 
         public async Task<IList<Pessoa>> ObterTodas()
         {
-            var userAPI = await UserAPIServico.Consumir();
+            await ConsumirAPi();
+            return _usersDTO.Data.ToList();
+        }
 
-            return userAPI.Pessoas.ToList();
+        private async Task ConsumirAPi()
+        {
+            var timeoutPolicy = Policy.TimeoutAsync(30);
+            var response = await timeoutPolicy
+                .ExecuteAsync(
+                  async ct => await _httpClient.GetAsync("https://reqres.in/api/users?page=2"), 
+                  CancellationToken.None 
+                  );
+       
+            var jsonString = await response.Content.ReadAsStringAsync();
+            _usersDTO = JsonConvert.DeserializeObject<UsersDTO>(jsonString);
         }
     }
 }

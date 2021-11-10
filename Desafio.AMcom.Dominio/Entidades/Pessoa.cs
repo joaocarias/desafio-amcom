@@ -11,10 +11,10 @@ namespace Desafio.AMcom.Dominio.Entidades
         public string Email { get; set; }
 
         [JsonPropertyName("first_name")]
-        public string FirstName { get; set; }
+        public string First_name { get; set; }
 
         [JsonPropertyName("last_name")]
-        public string LastName { get; set; }
+        public string Last_name { get; set; }
 
         [JsonPropertyName("avatar")]
         public string Avatar { get; set; }

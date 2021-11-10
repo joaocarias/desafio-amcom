@@ -10,15 +10,20 @@ namespace Desafio.AMcom.Dominio.DTO
         public int Page { get; set; }
 
         [JsonPropertyName("per_page")]
-        public int PerPage { get; set; }
+        public int Per_page { get; set; }
 
         [JsonPropertyName("total")]
         public int Total { get; set; }
 
         [JsonPropertyName("total_pages")]
-        public int TotalPages { get; set; }
+        public int Total_pages { get; set; }
 
         [JsonPropertyName("data")]
-        public IList<Pessoa> Pessoas { get; set; }
+        public IList<Pessoa> Data { get; set; }
+
+        public UsersDTO()
+        {
+            Data = new List<Pessoa>();
+        }
     }
 }

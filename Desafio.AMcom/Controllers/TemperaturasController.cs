@@ -82,8 +82,7 @@ namespace Desafio.AMcom.Controllers
         public ActionResult SalvaTemperaturatxt(Temperatura temperatura)
         {
             StreamWriter file = new StreamWriter("temperatura.txt");
-
-            
+                        
             file.WriteLine(temperatura.ValorKelvin);
             file.WriteLine(temperatura.ValorCelsius);
             file.WriteLine(temperatura.ValorFahrenheit);
